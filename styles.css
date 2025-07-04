@@ -1,0 +1,191 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: #f3f4f6;
+  color: #333;
+}
+
+/* HEADER NUEVO */
+.hero-grid {
+  background: linear-gradient(to right, #0f172a, #1e293b);
+  color: white;
+  padding: 3rem 1rem;
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+  gap: 2rem;
+}
+
+.logo-box {
+  text-align: center;
+}
+
+.logo {
+  width: 160px;
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.texto-box {
+  text-align: center;
+}
+
+.texto-box h1 {
+  font-size: 2.6rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.slogan {
+  font-size: 1.1rem;
+  color: #38bdf8;
+  line-height: 1.6;
+}
+
+.contacto {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-weight: bold;
+  color: #f472b6;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.contacto:hover {
+  color: #fb7185;
+}
+
+/* RESPONSIVE HEADER */
+@media (max-width: 768px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .logo {
+    margin-bottom: 1rem;
+  }
+}
+
+/* FOOTER */
+footer {
+  background: #1e293b;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+/* MAIN */
+main {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* PRODUCTOS */
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.card h2 {
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
+.card p {
+  color: #4b5563;
+}
+
+.card button {
+  background: #0ea5e9;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.card button:hover {
+  background: #0369a1;
+}
+
+/* CARRITO */
+.cart-section {
+  padding: 2rem;
+  margin: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.cart-list {
+  list-style: none;
+  padding: 0;
+}
+
+.cart-list li {
+  margin-bottom: 0.5rem;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-left: 10px;
+}
+
+.pay-btn {
+  background: #10b981;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pay-btn:hover {
+  background: #047857;
+}
+/* Totales */
+.totales {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #111827;
+}
+
+.totales p {
+  margin: 0.3rem 0;
+}

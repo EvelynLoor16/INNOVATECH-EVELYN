@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Innovatech Evelyn</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.payphone.com.ec/lib/js/payphone.js"></script>
+</head>
+<body>
+
+  <!-- ENCABEZADO -->
+  <header class="hero-grid">
+    <div class="hero-container">
+      <div class="logo-box">
+        <img src="img/logo.jpeg" alt="Logo Innovatech Evelyn" class="logo" />
+      </div>
+      <div class="texto-box">
+        <h1>INNOVATECH EVELYN</h1>
+        <p class="slogan">
+          Soluciones tecnológicas innovadoras en un solo lugar.<br />
+          Venta de equipos, accesorios, soporte técnico y servicios digitales para hogares y negocios 💻🖱️<br />
+          <a class="contacto" href="https://wa.me/593979328589" target="_blank">
+            📞 Contáctanos al <strong>0979328589</strong>
+          </a>
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- CUERPO -->
+  <main>
+    <section class="product-container" id="product-list"></section>
+
+    <section class="cart-section">
+      <h2>Carrito de Compras</h2>
+      <ul id="cart" class="cart-list"></ul>
+
+      <p><strong>Subtotal:</strong> $<span id="subtotal">0.00</span></p>
+      <p><strong>IVA (11%):</strong> $<span id="iva">0.00</span></p>
+      <p><strong>Total a pagar:</strong> $<span id="total">0.00</span></p>
+
+      <button id="payButton" class="pay-btn">Pagar con PayPhone</button>
+      <div id="payphone-button-container" style="margin-top: 1rem;"></div>
+    </section>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <p>&copy; 2025 - Innovatech Evelyn. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
