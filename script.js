@@ -1,3 +1,7 @@
+// Inicializar el carrito y la lista de productos
+const cart = [];
+
+// Productos disponibles
 const products = [
   { name: "Teclado Mecánico RGB", price: 45.00, image: "img/teclado.jpg" },
   { name: "Mouse Ergonómico", price: 25.00, image: "img/mouse.jpg" },
@@ -11,14 +15,10 @@ const products = [
   { name: "Parlantes Bluetooth - Modelo C", price: 35.99, image: "img/parlantes2.jpg" }
 ];
 
-const container = document.getElementById('product-list');
-const cartList = document.getElementById('cart');
-const payButton = document.getElementById('payButton');
-const cart = [];
-
 // Actualiza el carrito en el DOM
 function updateCart() {
-  cartList.innerHTML = "";
+  const cartList = document.getElementById('cart');
+  cartList.innerHTML = "";  // Limpia la lista de productos del carrito
   let subtotal = 0;
 
   cart.forEach((item, index) => {
@@ -29,7 +29,7 @@ function updateCart() {
     cartList.appendChild(li);
   });
 
-  const iva = subtotal * 0.11; // 11% de IVA
+  const iva = subtotal * 0.11;  // 11% de IVA
   const total = subtotal + iva;
 
   // Actualiza los valores en el carrito
@@ -40,11 +40,12 @@ function updateCart() {
 
 // Elimina un producto del carrito
 function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCart();
+  cart.splice(index, 1);  // Elimina el producto del carrito
+  updateCart();  // Actualiza el carrito
 }
 
 // Renderiza los productos en el DOM
+const container = document.getElementById('product-list');
 products.forEach(product => {
   const card = document.createElement('div');
   card.className = 'card';
@@ -54,66 +55,36 @@ products.forEach(product => {
     <p>Precio: $${product.price.toFixed(2)}</p>
     <button>Añadir al carrito</button>`;
   card.querySelector('button').addEventListener('click', () => {
-    cart.push(product);
-    updateCart();
+    cart.push(product);  // Añade el producto al carrito
+    updateCart();  // Actualiza el carrito
   });
   container.appendChild(card);
 });
 
-// Muestra el modal de pago si el carrito tiene productos
-payButton.addEventListener('click', () => {
-  if (cart.length === 0) {
-    alert("Tu carrito está vacío.");
-    return;
-  }
-  document.getElementById('formModal').style.display = 'block'; // Muestra el modal
-});
-
-// Cierra el modal
-function cerrarModal() {
-  document.getElementById('formModal').style.display = 'none';
-}
-
-// Procesa el pago después de llenar los datos en el formulario
-function generarPago() {
-  const cedula = document.getElementById("cedula").value;
-  const nombre = document.getElementById("nombre").value;
-  const correo = document.getElementById("correo").value;
-
-  if (!cedula || !nombre || !correo) {
-    alert("Por favor completa todos los campos.");
-    return;
-  }
-
-  // Aquí se simula el pago exitoso
-  alert("✅ Pago procesado exitosamente. ¡Gracias por su compra!");
-  cerrarModal(); // Cierra el modal después de procesar
-}
-
-// Integración con PayPhone para realizar el pago
-payButton.addEventListener('click', () => {
+// Procesa el pago con PayPhone
+document.getElementById('payButton').addEventListener('click', () => {
   if (cart.length === 0) {
     alert("Tu carrito está vacío.");
     return;
   }
 
   const total = cart.reduce((sum, item) => sum + item.price, 0);
-  const totalCentavos = Math.round(total * 100); // Convertir a centavos
-  const baseSinIVA = Math.round(totalCentavos / 1.11); // Monto sin IVA
-  const iva = totalCentavos - baseSinIVA; // Monto del IVA
+  const totalCentavos = Math.round(total * 100);  // Convertir a centavos
+  const baseSinIVA = Math.round(totalCentavos / 1.11);  // Monto sin IVA
+  const iva = totalCentavos - baseSinIVA;  // Monto del IVA
 
   // Solicitud de pago a PayPhone
   const paymentRequest = {
-    amount: totalCentavos, // Total en centavos
-    amountWithoutTax: baseSinIVA, // Monto sin impuestos
-    tax: iva, // IVA calculado
-    service: 0, // Servicios adicionales (si aplica)
-    tip: 0, // Propina (si aplica)
+    amount: totalCentavos,  // Total en centavos
+    amountWithoutTax: baseSinIVA,  // Monto sin impuestos en centavos
+    tax: iva,  // IVA calculado
+    service: 0,  // Servicios adicionales (si aplica)
+    tip: 0,  // Propina (si aplica)
     clientTransactionId: "pedido_" + Date.now() // ID único de transacción
   };
 
   const payphoneContainer = document.getElementById("payphone-button-container");
-  payphoneContainer.innerHTML = ""; // Limpiar el contenedor antes de crear el botón
+  payphoneContainer.innerHTML = "";  // Limpiar el contenedor antes de crear el botón
 
   // Crear el botón de PayPhone
   const button = PayPhone.Button({
@@ -125,7 +96,7 @@ payButton.addEventListener('click', () => {
       console.log("✅ Pago exitoso:", response);
       alert("✅ Su pago fue exitoso. ¡Gracias por su compra!");
       cart.length = 0; // Vaciar carrito después del pago
-      updateCart();
+      updateCart();  // Actualiza el carrito
     },
     onError: function (error) {
       console.error("❌ Error al pagar:", error);
@@ -133,8 +104,9 @@ payButton.addEventListener('click', () => {
     }
   });
 
-  payphoneContainer.appendChild(button); // Agregar el botón al contenedor
+  payphoneContainer.appendChild(button);  // Agregar el botón al contenedor
 });
+
 
 
 
