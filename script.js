@@ -16,6 +16,7 @@ const cartList = document.getElementById('cart');
 const payButton = document.getElementById('payButton');
 const cart = [];
 
+// Actualiza el carrito en el DOM
 function updateCart() {
   cartList.innerHTML = "";
   let subtotal = 0;
@@ -28,19 +29,22 @@ function updateCart() {
     cartList.appendChild(li);
   });
 
-  const iva = subtotal * 0.11;
+  const iva = subtotal * 0.11; // 11% de IVA
   const total = subtotal + iva;
 
+  // Actualiza los valores en el carrito
   document.getElementById("subtotal").textContent = subtotal.toFixed(2);
   document.getElementById("iva").textContent = iva.toFixed(2);
   document.getElementById("total").textContent = total.toFixed(2);
 }
 
+// Elimina un producto del carrito
 function removeFromCart(index) {
   cart.splice(index, 1);
   updateCart();
 }
 
+// Renderiza los productos en el DOM
 products.forEach(product => {
   const card = document.createElement('div');
   card.className = 'card';
@@ -56,23 +60,21 @@ products.forEach(product => {
   container.appendChild(card);
 });
 
-// Mostrar el modal con el formulario cuando se haga clic en el botón de pagar
+// Muestra el modal de pago si el carrito tiene productos
 payButton.addEventListener('click', () => {
   if (cart.length === 0) {
     alert("Tu carrito está vacío.");
     return;
   }
-
-  // Mostrar modal con campos de datos
-  document.getElementById('formModal').style.display = 'block';
+  document.getElementById('formModal').style.display = 'block'; // Muestra el modal
 });
 
-// Función para cerrar el modal
+// Cierra el modal
 function cerrarModal() {
   document.getElementById('formModal').style.display = 'none';
 }
 
-// Función para procesar el pago después de llenar los datos
+// Procesa el pago después de llenar los datos en el formulario
 function generarPago() {
   const cedula = document.getElementById("cedula").value;
   const nombre = document.getElementById("nombre").value;
@@ -83,14 +85,12 @@ function generarPago() {
     return;
   }
 
-  // Aquí se simula el pago exitoso sin mostrar los datos
+  // Aquí se simula el pago exitoso
   alert("✅ Pago procesado exitosamente. ¡Gracias por su compra!");
-
-  // Cerrar el modal después de procesar
-  cerrarModal();
+  cerrarModal(); // Cierra el modal después de procesar
 }
 
-// Integración de PayPhone para realizar el pago
+// Integración con PayPhone para realizar el pago
 payButton.addEventListener('click', () => {
   if (cart.length === 0) {
     alert("Tu carrito está vacío.");
@@ -98,31 +98,33 @@ payButton.addEventListener('click', () => {
   }
 
   const total = cart.reduce((sum, item) => sum + item.price, 0);
-  const totalCentavos = Math.round(total * 100);
-  const baseSinIVA = Math.round(totalCentavos / 1.11);
-  const iva = totalCentavos - baseSinIVA;
+  const totalCentavos = Math.round(total * 100); // Convertir a centavos
+  const baseSinIVA = Math.round(totalCentavos / 1.11); // Monto sin IVA
+  const iva = totalCentavos - baseSinIVA; // Monto del IVA
 
+  // Solicitud de pago a PayPhone
   const paymentRequest = {
-    amount: totalCentavos,
-    amountWithoutTax: baseSinIVA,
-    tax: iva,
-    service: 0,
-    tip: 0,
-    clientTransactionId: "pedido_" + Date.now()
+    amount: totalCentavos, // Total en centavos
+    amountWithoutTax: baseSinIVA, // Monto sin impuestos
+    tax: iva, // IVA calculado
+    service: 0, // Servicios adicionales (si aplica)
+    tip: 0, // Propina (si aplica)
+    clientTransactionId: "pedido_" + Date.now() // ID único de transacción
   };
 
   const payphoneContainer = document.getElementById("payphone-button-container");
-  payphoneContainer.innerHTML = ""; // limpiar antes de generar
+  payphoneContainer.innerHTML = ""; // Limpiar el contenedor antes de crear el botón
 
+  // Crear el botón de PayPhone
   const button = PayPhone.Button({
-    token: "OIUirdECIEZuryUo288QjF61WMxr-PUi1lHAwicDRFsYdk73OME5QslNeTC-zGyZY4KdedeGFtgzqDFQe5KGqiHqAc-2kMMf5xSDRERDcz_5tC46-9BwJmn6UU_57mSCN07wE_inzwNN895r7cNfg1E9PYNBSHznz51_q8mWK0x9lXPq1msuBowat1a2MWSNC2qtBWvvWI_YiLeKPCDy2fd33i8A7dXFszokNkxK7YAXgP7lesqP3hogmdMLZLwXPYYv-xI5cANlXu6thdU3_wbqiSuBFqp6cjxwevz-74nbz7mT0BB184oBnC6Vzo-QOuvqR9bD9oGMhfnCGBoGaRJmEiY",
-    btnText: "Pagar ahora",
-    createOrder: () => paymentRequest,
-    container: "payphone-button-container",
+    token: "OIUirdECIEZuryUo288QjF61WMxr-PUi1lHAwicDRFsYdk73OME5QslNeTC-zGyZY4KdedeGFtgzqDFQe5KGqiHqAc-2kMMf5xSDRERDcz_5tC46-9BwJmn6UU_57mSCN07wE_inzwNN895r7cNfg1E9PYNBSHznz51_q8mWK0x9lXPq1msuBowat1a2MWSNC2qtBWvvWI_YiLeKPCDy2fd33i8A7dXFszokNkxK7YAXgP7lesqP3hogmdMLZLwXPYYv-xI5cANlXu6thdU3_wbqiSuBFqp6cjxwevz-74nbz7mT0BB184oBnC6Vzo-QOuvqR9bD9oGMhfnCGBoGaRJmEiY",  // Reemplaza con tu token de PayPhone
+    btnText: "Pagar ahora",  // Texto del botón
+    createOrder: () => paymentRequest, // Detalles de la orden
+    container: "payphone-button-container", // Contenedor donde se renderiza el botón
     onComplete: function (response) {
       console.log("✅ Pago exitoso:", response);
       alert("✅ Su pago fue exitoso. ¡Gracias por su compra!");
-      cart.length = 0;
+      cart.length = 0; // Vaciar carrito después del pago
       updateCart();
     },
     onError: function (error) {
@@ -131,7 +133,8 @@ payButton.addEventListener('click', () => {
     }
   });
 
-  payphoneContainer.appendChild(button);
+  payphoneContainer.appendChild(button); // Agregar el botón al contenedor
 });
+
 
 
