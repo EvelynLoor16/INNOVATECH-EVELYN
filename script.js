@@ -21,7 +21,7 @@ document.getElementById('payButton').addEventListener('click', () => {
     tax: iva,  // IVA calculado
     service: 0,  // Servicios adicionales (si aplica)
     tip: 0,  // Propina (si aplica)
-    clientTransactionId: clientTransactionId  // ID único de transacción
+    clientTransactionId: client2Transaction // ID único de transacción
   };
 
   const payphoneContainer = document.getElementById("payphone-button-container");
