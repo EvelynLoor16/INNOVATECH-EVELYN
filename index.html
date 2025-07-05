@@ -106,7 +106,7 @@
       });
 
       // Evento para el botón de PayPhone
-      const phoneNumber = "+593979328589";  // Número de teléfono del cliente
+      const phoneNumber = "+593979328589"; ; // Número de teléfono del cliente
       window.ppb = new PPaymentButtonBox({
         token: 'OIUirdECIEZuryUo288QjF61WMxr-PUi1lHAwicDRFsYdk73OME5QslNeTC-zGyZY4KdedeGFtgzqDFQe5KGqiHqAc-2kMMf5xSDRERDcz_5tC46-9BwJmn6UU_57mSCN07wE_inzwNN895r7cNfg1E9PYNBSHznz51_q8mWK0x9lXPq1msuBowat1a2MWSNC2qtBWvvWI_YiLeKPCDy2fd33i8A7dXFszokNkxK7YAXgP7lesqP3hogmdMLZLwXPYYv-xI5cANlXu6thdU3_wbqiSuBFqp6cjxwevz-74nbz7mT0BB184oBnC6Vzo-QOuvqR9bD9oGMhfnCGBoGaRJmEiY',  // Token de acceso
         clientTransactionId: 'ID_UNICO_X_TRANSACCION-001',  // ID único de la transacción
@@ -117,18 +117,49 @@
         service: 0,  // Servicio adicional (si aplica)
         tip: 0,  // Propina (si aplica)
         currency: "USD",  // Moneda
-        storeId: "YOUR_STORE_ID",  // ID de tu tienda
+        storeId: "fedbba10-1954-4e89-a11a-33a2b04fd2c0",  // ID de tu tienda
         reference: "Pago por venta",  // Referencia de pago
         lang: "es",  // Idioma
         defaultMethod: "card",  // Método de pago por defecto
         phoneNumber: phoneNumber,  // Número de teléfono del cliente
-        email: "eveloor@mail.com",  // Correo del cliente
-        documentId: "1316451358",  // ID de documento (si es necesario)
+        email: "nalelyloor05@mail.com",  // Correo del cliente
+        documentId: "1316451341",  // ID de documento (si es necesario)
         identificationType: 1  // Tipo de identificación
       }).render('pp-button');
     });
+
+    // Función para guardar el carrito en el backend
+    function guardarCarrito() {
+      const carritoData = {
+        productos: cart, // Lista de productos en el carrito
+        subtotal: parseFloat(document.getElementById("subtotal").textContent),
+        iva: parseFloat(document.getElementById("iva").textContent),
+        total: parseFloat(document.getElementById("total").textContent),
+        telefono: "+593979328589",  // Número de teléfono del cliente
+        correo: "eveloor@mail.com"  // Correo del cliente
+      };
+
+      fetch('https://innovatech-evelyn.onrender.com/guardar-carrito', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(carritoData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Respuesta del servidor:', data);
+      })
+      .catch(error => {
+        console.error('Error al guardar el carrito:', error);
+      });
+    }
+
+    // Llamar a la función cuando se haga el pago
+    document.getElementById("payButton").addEventListener('click', guardarCarrito);
   </script>
   <script src="script.js"></script>
 </body>
 </html>
+
 
