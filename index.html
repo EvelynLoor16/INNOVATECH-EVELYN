@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Innovatech Evelyn</title>
   <link rel="stylesheet" href="styles.css" />
+  
 
-  <!-- Estilos y Scripts de PayPhone -->
+QUE AQUI ME SALGA EL TOTAL DE LOS PRODCUTOS QUE UNO MISMO ELEIGE  QUE NO ME SALGA 3.15 SOLAMENTE SI N OEL TOTAL DE ACUERDO A LOS PRODUCTOS QUE UNO ELIGE, Y QUE EL CLIENTE SALGA ESE SI CON ESE NUMERO 09793289589  <!-- Estilos y Scripts de PayPhone --> 
   <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
   <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
 </head>
@@ -40,7 +41,7 @@
       <ul id="cart" class="cart-list"></ul>
 
       <p><strong>Subtotal:</strong> $<span id="subtotal">0.00</span></p>
-      <p><strong>IVA (11%):</strong> $<span id="iva">0.00</span></p>
+      <p><strong>IVA (1%):</strong> $<span id="iva">0.00</span></p>
       <p><strong>Total a pagar:</strong> $<span id="total">0.00</span></p>
 
       <button id="payButton" class="pay-btn">Pagar con PayPhone</button>
@@ -60,103 +61,37 @@
   <script>
     // Evento para renderizar el botón de pago de PayPhone al hacer clic
     window.addEventListener('DOMContentLoaded', () => {
-      // Lista de productos disponibles
-      const productos = [
-        { name: "Forro para Laptop 15'' - Diseño 2", price: 14.99 },
-        { name: "Teclado Mecánico RGB", price: 45.00 },
-        { name: "Mouse Ergonómico", price: 25.00 },
-        { name: "Computadora All-in-One", price: 550.00 },
-        // Agrega más productos según sea necesario
-      ];
+      const amount = 587000;  // Monto total en centavos (58.7000USD )
+      const amountWithoutTax = 200;  // Monto sin impuestos
+      const amountWithTax = 100;  // Monto con impuestos
+      const tax = 15;  // Impuesto del 15%
+      const service = 0;  // Servicios adicionales
+      const tip = 0;  // Propina
 
-      const cart = [];  // Carrito de compras (productos seleccionados)
-      const ivaPercentage = 11;  // Porcentaje de IVA
-
-      // Función para actualizar los totales
-      function updateTotal() {
-        const subtotal = cart.reduce((total, item) => total + item.price, 0);
-        const iva = (subtotal * ivaPercentage) / 100;
-        const total = subtotal + iva;
-
-        document.getElementById("subtotal").textContent = subtotal.toFixed(2);
-        document.getElementById("iva").textContent = iva.toFixed(2);
-        document.getElementById("total").textContent = total.toFixed(2);
-      }
-
-      // Función para agregar productos al carrito
-      function addProductToCart(product) {
-        cart.push(product);
-        const li = document.createElement("li");
-        li.textContent = `${product.name} - $${product.price.toFixed(2)}`;
-        document.getElementById("cart").appendChild(li);
-
-        updateTotal();
-      }
-
-      // Mostrar productos y permitir agregar al carrito
-      const productList = document.getElementById("product-list");
-      productos.forEach(product => {
-        const button = document.createElement("button");
-        button.textContent = `Agregar ${product.name}`;
-        button.addEventListener('click', () => addProductToCart(product));
-
-        const productDiv = document.createElement("div");
-        productDiv.appendChild(button);
-        productList.appendChild(productDiv);
-      });
-
-      // Evento para el botón de PayPhone
-      const phoneNumber = "+593979328589"; ; // Número de teléfono del cliente
-      window.ppb = new PPaymentButtonBox({
+      ppb = new PPaymentButtonBox({
         token: 'OIUirdECIEZuryUo288QjF61WMxr-PUi1lHAwicDRFsYdk73OME5QslNeTC-zGyZY4KdedeGFtgzqDFQe5KGqiHqAc-2kMMf5xSDRERDcz_5tC46-9BwJmn6UU_57mSCN07wE_inzwNN895r7cNfg1E9PYNBSHznz51_q8mWK0x9lXPq1msuBowat1a2MWSNC2qtBWvvWI_YiLeKPCDy2fd33i8A7dXFszokNkxK7YAXgP7lesqP3hogmdMLZLwXPYYv-xI5cANlXu6thdU3_wbqiSuBFqp6cjxwevz-74nbz7mT0BB184oBnC6Vzo-QOuvqR9bD9oGMhfnCGBoGaRJmEiY',  // Token de acceso
         clientTransactionId: 'ID_UNICO_X_TRANSACCION-001',  // ID único de la transacción
-        amount: (document.getElementById("total").textContent * 100),  // Monto total en centavos
-        amountWithoutTax: (document.getElementById("subtotal").textContent * 100),  // Monto sin impuestos
-        amountWithTax: (document.getElementById("total").textContent * 100),  // Monto con impuestos
-        tax: ivaPercentage,  // Impuesto
-        service: 0,  // Servicio adicional (si aplica)
-        tip: 0,  // Propina (si aplica)
-        currency: "USD",  // Moneda
+        amount: amount,  // Valor total
+        amountWithoutTax: amountWithoutTax,  // Monto sin impuestos
+        amountWithTax: amountWithTax,  // Monto con impuestos
+        tax: tax,  // Impuesto
+        service: service,  // Servicio
+        tip: tip,  // Propina
+        currency: "USD",  // Moneda (USD)
         storeId: "fedbba10-1954-4e89-a11a-33a2b04fd2c0",  // ID de tu tienda
-        reference: "Pago por venta",  // Referencia de pago
+        reference: "Pago por venta Fact#001",  // Referencia de pago
         lang: "es",  // Idioma
-        defaultMethod: "card",  // Método de pago por defecto
-        phoneNumber: phoneNumber,  // Número de teléfono del cliente
-        email: "nalelyloor05@mail.com",  // Correo del cliente
-        documentId: "1316451341",  // ID de documento (si es necesario)
-        identificationType: 1  // Tipo de identificación
-      }).render('pp-button');
+        defaultMethod: "card",  // Método por defecto (tarjeta)
+        timeZone: -5,  // Zona horaria
+        lat: "-1.831239",  // Latitud
+        lng: "-78.183406",  // Longitud
+        optionalParameter: "Parametro opcional",  // Parámetro opcional
+        phoneNumber: "+593979328589",  // Número de teléfono del cliente
+        email: "nallelyloor05r@mail.com",  // Correo del cliente
+        documentId: "1316451341",  // ID del documento del cliente
+        identificationType: 1  // Tipo de identificación: 1=cedula, 2=RUC, 3=pasaporte
+      }).render('pp-button');  // Renderiza el botón dentro del contenedor 'pp-button'
     });
-
-    // Función para guardar el carrito en el backend
-    function guardarCarrito() {
-      const carritoData = {
-        productos: cart, // Lista de productos en el carrito
-        subtotal: parseFloat(document.getElementById("subtotal").textContent),
-        iva: parseFloat(document.getElementById("iva").textContent),
-        total: parseFloat(document.getElementById("total").textContent),
-        telefono: "+593979328589",  // Número de teléfono del cliente
-        correo: "eveloor@mail.com"  // Correo del cliente
-      };
-
-      fetch('https://innovatech-evelyn.onrender.com/guardar-carrito', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(carritoData)
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Respuesta del servidor:', data);
-      })
-      .catch(error => {
-        console.error('Error al guardar el carrito:', error);
-      });
-    }
-
-    // Llamar a la función cuando se haga el pago
-    document.getElementById("payButton").addEventListener('click', guardarCarrito);
   </script>
   <script src="script.js"></script>
 </body>
