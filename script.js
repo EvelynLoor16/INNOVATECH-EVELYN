@@ -23,10 +23,8 @@ function updateCart() {
   cart.forEach((item, index) => {
     subtotal += item.price;
     const li = document.createElement("li");
-    li.innerHTML = `
-      ${item.name} - $${item.price.toFixed(2)}
-      <button onclick="removeFromCart(${index})" class="remove-btn">❌</button>
-    `;
+    li.innerHTML = `${item.name} - $${item.price.toFixed(2)}
+      <button onclick="removeFromCart(${index})" class="remove-btn">❌</button>`;
     cartList.appendChild(li);
   });
 
@@ -50,8 +48,7 @@ products.forEach(product => {
     <img src="${product.image}" alt="${product.name}">
     <h2>${product.name}</h2>
     <p>Precio: $${product.price.toFixed(2)}</p>
-    <button>Añadir al carrito</button>
-  `;
+    <button>Añadir al carrito</button>`;
   card.querySelector('button').addEventListener('click', () => {
     cart.push(product);
     updateCart();
@@ -59,6 +56,41 @@ products.forEach(product => {
   container.appendChild(card);
 });
 
+// Mostrar el modal con el formulario cuando se haga clic en el botón de pagar
+payButton.addEventListener('click', () => {
+  if (cart.length === 0) {
+    alert("Tu carrito está vacío.");
+    return;
+  }
+
+  // Mostrar modal con campos de datos
+  document.getElementById('formModal').style.display = 'block';
+});
+
+// Función para cerrar el modal
+function cerrarModal() {
+  document.getElementById('formModal').style.display = 'none';
+}
+
+// Función para procesar el pago después de llenar los datos
+function generarPago() {
+  const cedula = document.getElementById("cedula").value;
+  const nombre = document.getElementById("nombre").value;
+  const correo = document.getElementById("correo").value;
+
+  if (!cedula || !nombre || !correo) {
+    alert("Por favor completa todos los campos.");
+    return;
+  }
+
+  // Aquí se simula el pago exitoso sin mostrar los datos
+  alert("✅ Pago procesado exitosamente. ¡Gracias por su compra!");
+
+  // Cerrar el modal después de procesar
+  cerrarModal();
+}
+
+// Integración de PayPhone para realizar el pago
 payButton.addEventListener('click', () => {
   if (cart.length === 0) {
     alert("Tu carrito está vacío.");
@@ -70,25 +102,36 @@ payButton.addEventListener('click', () => {
   const baseSinIVA = Math.round(totalCentavos / 1.11);
   const iva = totalCentavos - baseSinIVA;
 
-  // Limpia el contenedor por si ya se generó antes
-  const payphoneContainer = document.getElementById("payphone-button-container");
-  payphoneContainer.innerHTML = "";
-
-  // Genera nuevo botón PayPhone
-  PayPhone.Button({
-    token: "AQUI_TU_TOKEN_REAL", // Reemplázalo por tu token real de PayPhone
-    btnText: "Pagar Ahora",
+  const paymentRequest = {
     amount: totalCentavos,
     amountWithoutTax: baseSinIVA,
     tax: iva,
-    clientTransactionId: "pedido_" + Date.now(),
+    service: 0,
+    tip: 0,
+    clientTransactionId: "pedido_" + Date.now()
+  };
+
+  const payphoneContainer = document.getElementById("payphone-button-container");
+  payphoneContainer.innerHTML = ""; // limpiar antes de generar
+
+  const button = PayPhone.Button({
+    token: "OIUirdECIEZuryUo288QjF61WMxr-PUi1lHAwicDRFsYdk73OME5QslNeTC-zGyZY4KdedeGFtgzqDFQe5KGqiHqAc-2kMMf5xSDRERDcz_5tC46-9BwJmn6UU_57mSCN07wE_inzwNN895r7cNfg1E9PYNBSHznz51_q8mWK0x9lXPq1msuBowat1a2MWSNC2qtBWvvWI_YiLeKPCDy2fd33i8A7dXFszokNkxK7YAXgP7lesqP3hogmdMLZLwXPYYv-xI5cANlXu6thdU3_wbqiSuBFqp6cjxwevz-74nbz7mT0BB184oBnC6Vzo-QOuvqR9bD9oGMhfnCGBoGaRJmEiY",
+    btnText: "Pagar ahora",
+    createOrder: () => paymentRequest,
     container: "payphone-button-container",
-    callback: function (response) {
-      console.log("Respuesta PayPhone:", response);
+    onComplete: function (response) {
+      console.log("✅ Pago exitoso:", response);
       alert("✅ Su pago fue exitoso. ¡Gracias por su compra!");
       cart.length = 0;
       updateCart();
+    },
+    onError: function (error) {
+      console.error("❌ Error al pagar:", error);
+      alert("❌ Error al procesar el pago. Intente nuevamente.");
     }
   });
+
+  payphoneContainer.appendChild(button);
 });
+
 
