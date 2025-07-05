@@ -1,4 +1,3 @@
-
 // Inicializar el carrito y la lista de productos
 const cart = [];
 
@@ -15,6 +14,9 @@ const products = [
   { name: "Parlantes Bluetooth - Modelo B", price: 20.99, image: "img/parlantes1.jpg" },
   { name: "Parlantes Bluetooth - Modelo C", price: 35.99, image: "img/parlantes2.jpg" }
 ];
+
+// Variable para contar las transacciones
+let transactionCounter = 1; // Iniciar contador desde 1
 
 // Actualiza el carrito en el DOM
 function updateCart() {
@@ -75,6 +77,10 @@ document.getElementById('payButton').addEventListener('click', () => {
   const baseSinIVA = Math.round(totalCentavos / 1.11);  // Monto sin IVA
   const iva = totalCentavos - baseSinIVA;  // Monto del IVA
 
+  // Generar un ID único para la transacción (pedido_1, pedido_2, ...)
+  const transactionId = "pedido_" + transactionCounter;
+  transactionCounter++;  // Incrementar el contador para la siguiente transacción
+
   // Solicitud de pago a PayPhone
   const paymentRequest = {
     amount: totalCentavos,  // Total en centavos
@@ -83,7 +89,7 @@ document.getElementById('payButton').addEventListener('click', () => {
     service: 0,  // Servicios adicionales (si aplica)
     tip: 0,  // Propina (si aplica)
     storeId: "fedbba10-1954-4e89-a11a-33a2b04fd2c0", // ID de la tienda
-    clientTransactionId: "pedido_" + Date.now() // ID único de transacción
+    client2TransactionId: transactionId // ID único de transacción generado automáticamente
   };
 
   const payphoneContainer = document.getElementById("payphone-button-container");
@@ -109,3 +115,4 @@ document.getElementById('payButton').addEventListener('click', () => {
 
   payphoneContainer.appendChild(button);  // Agregar el botón al contenedor
 });
+
