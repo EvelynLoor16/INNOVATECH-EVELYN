@@ -3,96 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Innovatech Evelyn</title>
+  <title>TiendaTech - PayPhone</title>
   <link rel="stylesheet" href="styles.css" />
-  
-
-QUE AQUI ME SALGA EL TOTAL DE LOS PRODCUTOS QUE UNO MISMO ELEIGE  QUE NO ME SALGA 3.15 SOLAMENTE SI N OEL TOTAL DE ACUERDO A LOS PRODUCTOS QUE UNO ELIGE, Y QUE EL CLIENTE SALGA ESE SI CON ESE NUMERO 09793289589  <!-- Estilos y Scripts de PayPhone --> 
-  <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
+  <!-- Solo usamos la cajita oficial -->
   <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
+<link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
 </head>
 <body>
-
-  <!-- ENCABEZADO -->
-  <header class="hero-grid">
-    <div class="hero-container">
-      <div class="logo-box">
-        <img src="img/logo.jpeg" alt="Logo Innovatech Evelyn" class="logo" />
-      </div>
-      <div class="texto-box">
-        <h1>INNOVATECH EVELYN</h1>
-        <p class="slogan">
-          Soluciones tecnológicas innovadoras en un solo lugar.<br />
-          Venta de equipos, accesorios, soporte técnico y servicios digitales 💻🖱️<br />
-          <a class="contacto" href="https://wa.me/593979328589" target="_blank">
-            📞 Contáctanos al <strong>0979328589</strong>
-          </a>
-        </p>
-      </div>
-    </div>
+  <header>
+    <h1>🛒 TiendaTech</h1>
+    <p class="subtitle">Soluciones tecnológicas innovadoras en un solo lugar.
+Venta de equipos, accesorios, soporte técnico y servicios digitales 💻🖱️
+📞 Contáctanos al 0979328589</p>
   </header>
 
-  <!-- CUERPO -->
   <main>
     <section class="product-container" id="product-list"></section>
 
     <section class="cart-section">
-      <h2>Carrito de Compras</h2>
-      <ul id="cart" class="cart-list"></ul>
+      <h2>🛍️ Carrito (<span id="cart-count">0</span>)</h2>
+      <ul id="cart"></ul>
 
-      <p><strong>Subtotal:</strong> $<span id="subtotal">0.00</span></p>
-      <p><strong>IVA (11%):</strong> $<span id="iva">0.00</span></p>
-      <p><strong>Total a pagar:</strong> $<span id="total">0.00</span></p>
+      <div id="totals">
+        <p>Subtotal: $<span id="subtotal">0.00</span></p>
+        <p>IVA (12%): $<span id="iva">0.00</span></p>
+        <p><strong>Total: $<span id="total">0.00</span></strong></p>
+      </div>
 
-      <button id="payButton" class="pay-btn">Pagar con PayPhone</button>
+      <!-- Aquí aparecerá la cajita de pago -->
+      <div id="pp-button" style="margin-top: 20px;"></div>
 
-      <!-- Contenedor para el botón de pago de PayPhone -->
-      <div id="pp-button" style="margin-top: 1rem;"></div>
+      <div class="cart-buttons">
+        <button id="payButton" class="pay-btn">💳 Pagar con PayPhone</button>
+        <button id="clearCart" class="clear-btn">🗑️ Vaciar carrito</button>
+        <div id="pp-button"></div>
+      </div>
     </section>
   </main>
 
-  <!-- PIE DE PÁGINA -->
   <footer>
-    <p>&copy; 2025 - Innovatech Evelyn. Todos los derechos reservados.</p>
+    <p>© 2025 Innovatech Evelyn - Todos los derechos reservados.</p>
   </footer>
 
-  <!-- Scripts -->
-  <script src="https://cdn.payphone.com.ec/js/payphone.min.js"></script>
-  <script>
-    // Evento para renderizar el botón de pago de PayPhone al hacer clic
-    window.addEventListener('DOMContentLoaded', () => {
-      const amount = 315;  // Monto total en centavos (3.15 USD = 315 centavos)
-      const amountWithoutTax = 200;  // Monto sin impuestos
-      const amountWithTax = 100;  // Monto con impuestos
-      const tax = 15;  // Impuesto del 15%
-      const service = 0;  // Servicios adicionales
-      const tip = 0;  // Propina
 
-      ppb = new PPaymentButtonBox({
-        token: 'OIUirdECIEZuryUo288QjF61WMxr-PUi1lHAwicDRFsYdk73OME5QslNeTC-zGyZY4KdedeGFtgzqDFQe5KGqiHqAc-2kMMf5xSDRERDcz_5tC46-9BwJmn6UU_57mSCN07wE_inzwNN895r7cNfg1E9PYNBSHznz51_q8mWK0x9lXPq1msuBowat1a2MWSNC2qtBWvvWI_YiLeKPCDy2fd33i8A7dXFszokNkxK7YAXgP7lesqP3hogmdMLZLwXPYYv-xI5cANlXu6thdU3_wbqiSuBFqp6cjxwevz-74nbz7mT0BB184oBnC6Vzo-QOuvqR9bD9oGMhfnCGBoGaRJmEiY',  // Token de acceso
-        clientTransactionId: 'ID_UNICO_X_TRANSACCION-001',  // ID único de la transacción
-        amount: amount,  // Valor total
-        amountWithoutTax: amountWithoutTax,  // Monto sin impuestos
-        amountWithTax: amountWithTax,  // Monto con impuestos
-        tax: tax,  // Impuesto
-        service: service,  // Servicio
-        tip: tip,  // Propina
-        currency: "USD",  // Moneda (USD)
-        storeId: "fedbba10-1954-4e89-a11a-33a2b04fd2c0",  // ID de tu tienda
-        reference: "Pago por venta Fact#001",  // Referencia de pago
-        lang: "es",  // Idioma
-        defaultMethod: "card",  // Método por defecto (tarjeta)
-        timeZone: -5,  // Zona horaria
-        lat: "-1.831239",  // Latitud
-        lng: "-78.183406",  // Longitud
-        optionalParameter: "Parametro opcional",  // Parámetro opcional
-        phoneNumber: "+593979328589",  // Número de teléfono del cliente
-        email: "nallelyloor05@mail.com",  // Correo del cliente
-        documentId: "1316451341",  // ID del documento del cliente
-        identificationType: 1  // Tipo de identificación: 1=cedula, 2=RUC, 3=pasaporte
-      }).render('pp-button');  // Renderiza el botón dentro del contenedor 'pp-button'
-    });
-  </script>
   <script src="script.js"></script>
 </body>
 </html>
