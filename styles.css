@@ -1,34 +1,56 @@
-/* styles.css mejorado para tienda de tecnología */
 body {
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
   background: #f3f4f6;
   color: #1f2937;
 }
+
 header {
-  background: #1e40af;
+  background: linear-gradient(90deg, #1e3a8a, #1e40af);
   color: white;
   padding: 2rem;
   text-align: center;
 }
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+  border-radius: 12px;
+  background: white;
+  padding: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
 header h1 {
   margin: 0;
   font-size: 2.2rem;
 }
+
 header .subtitle {
   font-size: 1.1rem;
   margin-top: 0.5rem;
 }
+
 main {
   max-width: 1200px;
   margin: auto;
   padding: 2rem;
 }
+
 .product-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
 }
+
 .card {
   background: white;
   border-radius: 12px;
@@ -37,23 +59,31 @@ main {
   text-align: center;
   transition: transform 0.2s ease;
 }
+
 .card:hover {
   transform: translateY(-5px);
 }
+
 .card img {
   max-width: 100%;
   height: auto;
+  max-height: 160px;
+  object-fit: contain;
   border-radius: 6px;
-  margin-bottom: 0.8rem;
+  margin: 0 auto 0.8rem;
+  display: block;
 }
+
 .card h2 {
   font-size: 1.2rem;
   margin: 0.5rem 0;
 }
+
 .card p {
   margin: 0.3rem 0;
   color: #374151;
 }
+
 .card button {
   background: #10b981;
   color: white;
@@ -64,9 +94,11 @@ main {
   cursor: pointer;
   transition: background 0.3s;
 }
+
 .card button:hover {
   background: #059669;
 }
+
 .cart-section {
   background: white;
   margin-top: 2rem;
@@ -74,11 +106,13 @@ main {
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
+
 .cart-section h2 {
   margin-bottom: 1rem;
   font-size: 1.3rem;
   color: #111827;
 }
+
 .cart-list li {
   display: flex;
   justify-content: space-between;
@@ -86,6 +120,7 @@ main {
   padding: 0.6rem 0;
   border-bottom: 1px solid #e5e7eb;
 }
+
 .remove-btn {
   background: transparent;
   border: none;
@@ -93,15 +128,35 @@ main {
   cursor: pointer;
   font-size: 1rem;
 }
+
 #totals p {
   font-size: 1rem;
   margin: 0.4rem 0;
 }
+
+/* Botones PayPhone + Vaciar */
 .cart-buttons {
   margin-top: 1.2rem;
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
+
+.cart-buttons button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.cart-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
 .pay-btn {
   background: #3b82f6;
   color: white;
@@ -111,9 +166,11 @@ main {
   font-size: 1rem;
   cursor: pointer;
 }
+
 .pay-btn:hover {
   background: #2563eb;
 }
+
 .clear-btn {
   background: #f87171;
   color: white;
@@ -123,9 +180,11 @@ main {
   font-size: 1rem;
   cursor: pointer;
 }
+
 .clear-btn:hover {
   background: #dc2626;
 }
+
 footer {
   background: #1f2937;
   color: white;
@@ -133,11 +192,4 @@ footer {
   padding: 1rem;
   margin-top: 2rem;
   font-size: 0.9rem;
-}
-
-.card img {
-  max-height: 160px;
-  object-fit: contain;
-  margin: 0 auto 0.8rem;
-  display: block;
 }
