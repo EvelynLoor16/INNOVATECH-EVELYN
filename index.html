@@ -3,22 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TiendaTech - PayPhone</title>
+  <title>INNOVATECH EVELYN</title>
   <link rel="stylesheet" href="styles.css" />
-  <!-- Solo usamos la cajita oficial -->
+  <!-- PayPhone -->
   <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
-<link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
+  <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
 </head>
 <body>
   <header>
-    <h1>🛒 TiendaTech</h1>
-    <p class="subtitle">Soluciones tecnológicas innovadoras en un solo lugar.
-Venta de equipos, accesorios, soporte técnico y servicios digitales 💻🖱️
-📞 Contáctanos al 0979328589</p>
+    <div class="header-content">
+      <img src="img/logo.jpeg" alt="Logo Innovatech" class="logo">
+      <div>
+        <h1>INNOVATECH EVELYN</h1>
+        <p class="subtitle">
+          Soluciones tecnológicas innovadoras en un solo lugar. <br>
+          Venta de equipos, accesorios, soporte técnico y servicios digitales 💻🖱️ <br>
+          📞 Contáctanos al 0979328589
+        </p>
+      </div>
+    </div>
   </header>
 
   <main>
-    <section class="product-container" id="product-list"></section>
+    <section class="product-container" id="product-list">
+      <!-- Productos se insertan desde JS -->
+    </section>
 
     <section class="cart-section">
       <h2>🛍️ Carrito (<span id="cart-count">0</span>)</h2>
@@ -30,13 +39,12 @@ Venta de equipos, accesorios, soporte técnico y servicios digitales 💻🖱️
         <p><strong>Total: $<span id="total">0.00</span></strong></p>
       </div>
 
-      <!-- Aquí aparecerá la cajita de pago -->
+      <!-- Cajita de PayPhone -->
       <div id="pp-button" style="margin-top: 20px;"></div>
 
       <div class="cart-buttons">
         <button id="payButton" class="pay-btn">💳 Pagar con PayPhone</button>
         <button id="clearCart" class="clear-btn">🗑️ Vaciar carrito</button>
-        <div id="pp-button"></div>
       </div>
     </section>
   </main>
@@ -44,7 +52,6 @@ Venta de equipos, accesorios, soporte técnico y servicios digitales 💻🖱️
   <footer>
     <p>© 2025 Innovatech Evelyn - Todos los derechos reservados.</p>
   </footer>
-
 
   <script src="script.js"></script>
 </body>
